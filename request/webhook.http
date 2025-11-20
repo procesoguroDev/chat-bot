@@ -1,4 +1,9 @@
 @BASE_URL = https://biaxial-sharla-indurative.ngrok-free.dev/
+@VERIFICATION_TOKEN=5e23a04e80b525d0d2dc0bf215b6ca5e
+
+###  verify 
+GET {{BASE_URL}}webhook?hub.mode=subscribe&hub.verify_token={{VERIFICATION_TOKEN}}&hub.challenge=123456 HTTP/1.1
+
 
 ### create post
 POST {{BASE_URL}}webhook HTTP/1.1
@@ -8,9 +13,21 @@ Content-Type: application/json
   "object": "whatsapp_business_account",
   "entry": [
     {
+      "id": "WHATSAPP_BUSINESS_ACCOUNT_ID",
       "changes": [
         {
           "value": {
+            "messaging_product": "whatsapp",
+            "metadata": {
+              "display_phone_number": "15550009999",
+              "phone_number_id": "123456789012345"
+            },
+            "contacts": [
+              {
+                "profile": { "name": "Nombre" },
+                "wa_id": "524432552079"
+              }
+            ],
             "messages": [
               {
                 "from": "524432552079",
@@ -19,11 +36,7 @@ Content-Type: application/json
                 "text": { "body": "hola" },
                 "type": "text"
               }
-            ],
-            "metadata": {
-              "display_phone_number": "15550009999",
-              "phone_number_id": "123456789012345"
-            }
+            ]
           },
           "field": "messages"
         }
@@ -31,5 +44,3 @@ Content-Type: application/json
     }
   ]
 }
-
-
