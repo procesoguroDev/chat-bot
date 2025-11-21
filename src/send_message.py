@@ -14,8 +14,6 @@ BASE_URL = os.getenv("BASE_URL_WEBHOOK")
 
 def  send_message(to, phone_number_id):
     try:
-        # message_send = """No quiero ser egoísta y por ello te pido que no me guardes luto, que no te apenes por mí, que rehagas tu vida lo más pronto posible y que no me eches en falta pues yo siempre estaré contigo en cada momento de tu vida. Que seas muy feliz y que hagas realidad todos tus sueños, ya que los míos se cumplieron cuando me dejaste amarte. Quiero que sepas que mis últimos pensamientos son para ti y que siempre te querré y cuidaré allá donde esté."""
-       
         url = f"{BASE_URL}/{phone_number_id}/messages"
 
         headers =  {
