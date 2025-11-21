@@ -38,7 +38,9 @@ async def verify_webhook(
 async def handle_webhook(request: Request):
     try:
         data = await request.json()
-       # print("Received webhook:", data)
+       #  print("Received webhook:", data['entry'])
+        # print("Received webhook:", data)
+
         if data:
             for entry in data.get("entry", []):
                 for change in entry.get("changes", []):
@@ -52,3 +54,38 @@ async def handle_webhook(request: Request):
     except Exception as e:
         logger.error(f" Server error {e}.")
 
+
+""" {   
+    'object': 'whatsapp_business_account',
+    'entry': [
+            {
+                'id': '1121311450083543', 
+                'changes': [
+                    {
+                        'value': {
+                            'messaging_product': 'whatsapp', 
+                            'metadata': {
+                                'display_phone_number': '15551998820', 
+                                'phone_number_id': '880051528522836'
+                            }, 
+                            'statuses': [
+                                {
+                                    'id': 'wamid.HBgNNTIxNDQzMjU1MjA3ORUCABEYEjQ3RURFQjRDRkJFOENEM0Y4RAA=', 
+                                    'status': 'read', 
+                                    'timestamp': '1763680939', 
+                                    'recipient_id': '5214432552079', 
+                                    'pricing': {
+                                        'billable': False, 
+                                        'pricing_model': 'PMP', 
+                                        'category': 'utility', 
+                                        'type': 'free_customer_service'
+                                    }
+                                }
+                            ]
+                        }, 
+                    'field': 'messages'
+                }
+            ]
+        }
+    ]
+} """
