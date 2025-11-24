@@ -26,9 +26,9 @@ def  send_message(to, phone_number_id):
             "to": "524432552079",
             "type": "template",
             "template": {
-                "name": "hello_world",
+                "name": "plantilla_prueba",
                 "language": {
-                    "code": "en_US"
+                    "code": "es_LA"
                 }
             }
         }

@@ -1,4 +1,4 @@
-from send_message import send_message
+from src.send_message import send_message
 import logging
 
 logging.basicConfig(level=logging.INFO)

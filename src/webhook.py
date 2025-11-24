@@ -1,6 +1,6 @@
-from fastapi import FastAPI, Request, HTTPException, Query
+from fastapi import Request, HTTPException, Query, APIRouter
 import os
-from engine import handle_message
+from src.engine import handle_message
 from dotenv import load_dotenv
 import logging
 
@@ -8,11 +8,12 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 load_dotenv()
 
-app = FastAPI()
+router = APIRouter()
+
 VERIFY_TOKEN = os.getenv("VERIFY_TOKEN")
 
 
-@app.get("/")
+@router.get("/")
 async def home():
     try:
         return {"message": "API is up"}
@@ -20,7 +21,7 @@ async def home():
         logger.error(f"Error {e}")
 
 
-@app.get("/webhook")
+@router.get("/webhook")
 async def verify_webhook(
     hub_mode: str = Query(None, alias="hub.mode"),
     hub_challenge: str = Query(None, alias="hub.challenge"),
@@ -34,7 +35,7 @@ async def verify_webhook(
         logger.erro(f"esto es un erro {e}")
 
 
-@app.post("/webhook")
+@router.post("/webhook")
 async def handle_webhook(request: Request):
     try:
         data = await request.json()
@@ -54,38 +55,3 @@ async def handle_webhook(request: Request):
     except Exception as e:
         logger.error(f" Server error {e}.")
 
-
-""" {   
-    'object': 'whatsapp_business_account',
-    'entry': [
-            {
-                'id': '1121311450083543', 
-                'changes': [
-                    {
-                        'value': {
-                            'messaging_product': 'whatsapp', 
-                            'metadata': {
-                                'display_phone_number': '15551998820', 
-                                'phone_number_id': '880051528522836'
-                            }, 
-                            'statuses': [
-                                {
-                                    'id': 'wamid.HBgNNTIxNDQzMjU1MjA3ORUCABEYEjQ3RURFQjRDRkJFOENEM0Y4RAA=', 
-                                    'status': 'read', 
-                                    'timestamp': '1763680939', 
-                                    'recipient_id': '5214432552079', 
-                                    'pricing': {
-                                        'billable': False, 
-                                        'pricing_model': 'PMP', 
-                                        'category': 'utility', 
-                                        'type': 'free_customer_service'
-                                    }
-                                }
-                            ]
-                        }, 
-                    'field': 'messages'
-                }
-            ]
-        }
-    ]
-} """
